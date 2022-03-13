@@ -3,11 +3,13 @@ import { Ground } from "../objects/ground";
 import { Hook } from "../objects/hook";
 import { Platform } from "../objects/platform";
 import { Player } from "../objects/player";
+import { Score } from "../objects/score";
 
 export class GameScene extends Phaser.Scene {
   public camera: Phaser.Cameras.Scene2D.Camera;
   public player: Player;
   public hook: Hook;
+  public score: Score;
 
   constructor() {
     super("GameScene");
@@ -20,8 +22,6 @@ export class GameScene extends Phaser.Scene {
 
   create() {
     const unitLength = this.scale.width / 20;
-
-    this.camera = this.cameras.main;
 
     this.add.image(0, 0, "background").setOrigin(0);
 
@@ -93,10 +93,13 @@ export class GameScene extends Phaser.Scene {
       }
     });
 
-    //Colliders
-    this.physics.add.collider(this.player, ground);
-    // this.physics.add.collider(this.player, platform);
+    this.score = new Score(this);
 
+    // Colliders
+    this.physics.add.collider(this.player, ground);
+
+    // Camera
+    this.camera = this.cameras.main;
     this.camera.setBounds(
       0,
       -this.scale.height * 2,
@@ -120,5 +123,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     this.player.update();
+    this.score.update(-this.player.y);
   }
 }
