@@ -1,7 +1,8 @@
 # phaser3-hook-game
 
-🚧 WIP 🚧
 The hook game by Phaser3.
+
+![sample](./imgs/sample.png)
 
 ## How to play
 
