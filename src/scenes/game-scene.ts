@@ -130,5 +130,19 @@ export class GameScene extends Phaser.Scene {
       platform.update();
     });
     this.platforms = this.platforms.filter((platform) => !platform.isDead);
+
+    if (this.platforms.length <= 3) {
+      this.platforms.push(
+        new Platform(
+          this,
+          Phaser.Math.RND.between(0, this.scale.width),
+          this.cameras.main.scrollY,
+          Phaser.Math.RND.between(
+            this.scale.width / 20,
+            (this.scale.width * 10) / 20
+          )
+        )
+      );
+    }
   }
 }
