@@ -26,7 +26,12 @@ export class Player extends Phaser.GameObjects.Image {
     );
     const angle = Phaser.Math.Angle.Between(this.x, this.y, targetX, targetY);
 
-    this.body.velocity.setLength(distance);
+    // buggy
+    // this.body.velocity.setLength(distance);
+
+    this.body.velocity.x = distance;
+    this.body.velocity.y = 0;
+
     this.body.velocity.setAngle(angle);
   }
 }
