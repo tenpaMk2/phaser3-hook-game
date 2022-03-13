@@ -10,6 +10,7 @@ export class GameScene extends Phaser.Scene {
   public player: Player;
   public hook: Hook;
   public score: Score;
+  public platforms: Platform[];
 
   constructor() {
     super("GameScene");
@@ -26,8 +27,8 @@ export class GameScene extends Phaser.Scene {
     this.add.image(0, 0, "background").setOrigin(0);
 
     const ground = new Ground(this);
-    const platforms: Platform[] = [];
-    platforms.push(
+    this.platforms = [];
+    this.platforms.push(
       new Platform(
         this,
         unitLength * 10,
@@ -35,7 +36,7 @@ export class GameScene extends Phaser.Scene {
         Phaser.Math.RND.between(unitLength * 10, unitLength * 15)
       )
     );
-    platforms.push(
+    this.platforms.push(
       new Platform(
         this,
         unitLength * 5,
@@ -43,7 +44,7 @@ export class GameScene extends Phaser.Scene {
         Phaser.Math.RND.between(unitLength * 10, unitLength * 15)
       )
     );
-    platforms.push(
+    this.platforms.push(
       new Platform(
         this,
         unitLength * 15,
@@ -80,7 +81,7 @@ export class GameScene extends Phaser.Scene {
           pointer.worldY
         );
 
-        platforms.forEach((platform) => {
+        this.platforms.forEach((platform) => {
           this.physics.add.overlap(
             this.hook,
             platform,
@@ -124,5 +125,10 @@ export class GameScene extends Phaser.Scene {
 
     this.player.update();
     this.score.update(-this.player.y);
+
+    this.platforms.forEach((platform) => {
+      platform.update();
+    });
+    this.platforms = this.platforms.filter((platform) => !platform.isDead);
   }
 }
