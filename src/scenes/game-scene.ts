@@ -103,9 +103,9 @@ export class GameScene extends Phaser.Scene {
     this.camera = this.cameras.main;
     this.camera.setBounds(
       0,
-      -this.scale.height * 2,
+      -this.scale.height * 40,
       this.scale.width,
-      this.scale.height * 2,
+      this.scale.height * 40,
       true
     );
     this.camera.startFollow(
