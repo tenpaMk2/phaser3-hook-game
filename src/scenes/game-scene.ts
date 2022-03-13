@@ -19,12 +19,38 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
+    const unitLength = this.scale.width / 20;
+
     this.camera = this.cameras.main;
 
     this.add.image(0, 0, "background").setOrigin(0);
 
     const ground = new Ground(this);
-    const platform = new Platform(this);
+    const platforms: Platform[] = [];
+    platforms.push(
+      new Platform(
+        this,
+        unitLength * 10,
+        -unitLength * 10,
+        Phaser.Math.RND.between(unitLength * 10, unitLength * 15)
+      )
+    );
+    platforms.push(
+      new Platform(
+        this,
+        unitLength * 5,
+        -unitLength * 20,
+        Phaser.Math.RND.between(unitLength * 10, unitLength * 15)
+      )
+    );
+    platforms.push(
+      new Platform(
+        this,
+        unitLength * 15,
+        -unitLength * 30,
+        Phaser.Math.RND.between(unitLength * 10, unitLength * 15)
+      )
+    );
 
     this.player = new Player(
       this,
@@ -53,15 +79,17 @@ export class GameScene extends Phaser.Scene {
           pointer.worldX,
           pointer.worldY
         );
-        // this.physics.add.collider(this.player, this.hook);
-        this.physics.add.overlap(
-          this.hook,
-          platform,
-          (hook: Hook, platcorm: Platform) => {
-            this.player.pull(hook.x, hook.y);
-            hook.die();
-          }
-        );
+
+        platforms.forEach((platform) => {
+          this.physics.add.overlap(
+            this.hook,
+            platform,
+            (hook: Hook, platform: Platform) => {
+              this.player.pull(hook.x, hook.y);
+              hook.die();
+            }
+          );
+        });
       }
     });
 
