@@ -18,20 +18,13 @@ export class Player extends Phaser.GameObjects.Image {
   }
 
   public pull(targetX: number, targetY: number) {
-    const distance = Phaser.Math.Distance.Between(
-      this.x,
-      this.y,
-      targetX,
-      targetY
+    const distanceY = Phaser.Math.Difference(this.y, targetY);
+    const initialVelY = -Math.sqrt(
+      2 * distanceY * this.scene.physics.config.gravity.y
     );
-    const angle = Phaser.Math.Angle.Between(this.x, this.y, targetX, targetY);
+    const bonus = 1.5;
 
-    // buggy
-    // this.body.velocity.setLength(distance);
-
-    this.body.velocity.x = distance;
-    this.body.velocity.y = 0;
-
-    this.body.velocity.setAngle(angle);
+    this.body.velocity.x = targetX - this.x;
+    this.body.velocity.y = initialVelY * bonus;
   }
 }
