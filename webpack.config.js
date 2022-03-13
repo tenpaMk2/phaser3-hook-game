@@ -20,6 +20,7 @@ export default {
   output: {
     filename: "bundle.js",
     path: path.resolve("dist"),
+    clean: true,
   },
   devtool: "source-map",
   devServer: {
