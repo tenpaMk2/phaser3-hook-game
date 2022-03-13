@@ -60,18 +60,6 @@ export class GameScene extends Phaser.Scene {
     );
 
     this.input.on("pointerdown", (pointer: any) => {
-      // this.player.x = pointer.worldX;
-      // this.player.y = pointer.worldY;
-
-      // const angle = Phaser.Math.Angle.Between(
-      //   this.player.x,
-      //   this.player.y,
-      //   pointer.worldX,
-      //   pointer.worldY
-      // );
-      // this.player.body.velocity.x = 100 * Math.cos(angle);
-      // this.player.body.velocity.y = 100 * Math.sin(angle);
-
       if (!this.hook || this.hook.isDead) {
         this.hook = new Hook(
           this,
