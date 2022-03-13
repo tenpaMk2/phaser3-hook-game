@@ -118,5 +118,7 @@ export class GameScene extends Phaser.Scene {
     if (this.hook && !this.hook.isDead) {
       this.hook.update(this.player.x, this.player.y);
     }
+
+    this.player.update();
   }
 }

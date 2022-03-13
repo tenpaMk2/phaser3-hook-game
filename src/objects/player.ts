@@ -27,4 +27,17 @@ export class Player extends Phaser.GameObjects.Image {
     this.body.velocity.x = targetX - this.x;
     this.body.velocity.y = initialVelY * bonus;
   }
+
+  public update() {
+    this.checkIfOffScreen();
+  }
+
+  private checkIfOffScreen() {
+    // horizontal check
+    if (this.scene.sys.canvas.width < this.x) {
+      this.x = 0;
+    } else if (this.x < 0) {
+      this.x = this.scene.sys.canvas.width;
+    }
+  }
 }
