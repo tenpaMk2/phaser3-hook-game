@@ -17,14 +17,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", "assets/imgs/background.jpg");
     this.load.image("player", "assets/imgs/player.png");
   }
 
   create() {
     const unitLength = this.scale.width / 20;
-
-    this.add.image(0, 0, "background").setOrigin(0);
 
     const ground = new Ground(this);
     this.platforms = [];
